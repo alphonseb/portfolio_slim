@@ -1,0 +1,39 @@
+{% include 'partials/header.twig' %}
+
+<main>
+    <h1>Get in touch</h1>
+    <p>Do you think we can work together or do you simply want to shoot me a message ? It's right here !</p>
+    
+    {% if success.sent %}
+        <p>{{ success.sent }}</p>
+    {% endif %}
+    
+    <form action="#" method="post">
+        <div>
+            <div>
+                <label for="name">Your Name</label>
+                <input type="text" name="name" id="name" value="{{ form_name }}">
+                {% if errors.name %}
+                    {{ errors.name }}
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <label for="email">Your E-mail</label>
+            <input type="email" name="email" id="email" value="{{ email }}">
+            {% if errors.email %}
+                {{ errors.email }}
+            {% endif %}
+        </div>
+        <div>
+            <label for="message">Your Message</label>
+            <textarea name="message" id="message" cols="30" rows="10">{{ message }}</textarea>
+            {% if errors.message %}
+                {{ errors.message }}
+            {% endif %}
+        </div>
+        <input type="submit" value="Send">
+    </form>
+</main>
+
+{% include 'partials/footer.twig' %}

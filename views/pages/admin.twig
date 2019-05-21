@@ -1,0 +1,8 @@
+{% include 'partials/header.twig' %}
+
+<main>
+    <h1>Bonjour {{ user.login }}</h1>
+    <a href="{{ path_for('disconnect') }}">Se déconnecter</a>
+</main>
+
+{% include 'partials/footer.twig' %}

@@ -1,0 +1,27 @@
+{% include 'partials/header.twig' %}
+
+<main>
+    <h1>My projects</h1>
+    <div>
+        <h3>Order by :</h3>
+        <form action="#" method="post">
+            {% for _project_category in project_categories %}
+                <input type="checkbox" name="cat" id="{{ _project_category.name }}" value="{{ _project_category.name }}">
+                <label for="{{ _project_category.name }}">{{ _project_category.name|capitalize }}</label>
+            {% endfor %}
+        </form>
+    </div>
+    <div>
+        {% for _project in projects %}
+            <div>
+                <a href="{{ path_for('project', {slug: _project.slug})}}">
+                    <h3>{{ _project.name }}</h3>
+                    <p>{{  }}</p>
+                    <img src="" alt="">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+
+{% include 'partials/footer.twig' %}

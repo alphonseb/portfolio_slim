@@ -1,0 +1,21 @@
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="{{ path_for('home') }}">Home</a></li>
+                <li><a href="{{ path_for('projects') }}">Projects</a></li>
+                <li><a href="{{ path_for('contact') }}">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <p>Copyright {{ name }} {{ 'now'|date('Y') }}</p>
+        </div>
+        <div>
+            {% for _option in options %}
+                <a target="_blank" href="{{ _option.link }}" title="{{ _option.name }}">
+                    {% include 'svg/' ~ _option.name ~ '.svg' %}
+                </a>
+            {% endfor %}
+        </div>
+    </footer>
+</body>
+</html>

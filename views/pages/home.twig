@@ -1,0 +1,34 @@
+{% include 'partials/header.twig' %}
+
+<main>
+    <div>
+        <div>
+            <h1>{{ name }}</h1>
+            <h3>{{ function }}</h3>
+            <p>{{ description }}</p>
+            <a href="{{ path_for('projects') }}">Discover my work</a>
+        </div>
+        <div>
+            <img src="{{ base_url() ~ '/assets/images/illu-home.svg' }}" alt="Developer programming - Illustration">
+        </div>
+    </div>
+    <div>
+        <h2>3 random projects</h2>
+        <div>
+            {% for _random_project in random_projects %}
+                <div>
+                    <a href="">
+                        <img src="" alt="">
+                        <h4></h4>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <h2>Do you want to work together ?</h2>
+        <a href="{{ path_for('contact') }}">Get in touch</a>
+    </div>
+</main>
+
+{% include 'partials/footer.twig' %}
