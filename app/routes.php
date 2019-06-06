@@ -1,4 +1,5 @@
 <?php
+use Slim\Exception\NotFoundException;
 
 //Home
 $app
@@ -14,7 +15,7 @@ $app
             
             $viewData['name'] = 'Alphonse Bouy';
             $viewData['function'] = 'Developer';
-            $viewData['description'] = "Blabla I'm a developer I do lots of things let's work together !";
+            $viewData['description'] = "Hi I'm Alphonse, I'm a front-end developer whith a special interest in UX-Design. <br> I love crafting neat user-focused experiences. I also do a lot of Wordpress Theme Development. <br> Hit me up if you want to work together on something great !";
             
             $query = $this->db->query('SELECT * from options');
             $options = $query->fetchAll();
@@ -53,6 +54,10 @@ $app
             }
             
             $viewData = [];
+            $query = $this->db->query('SELECT * from options');
+            $options = $query->fetchAll();
+
+            $viewData['options'] = $options;
             if (isset($_SESSION['user'])) {
                 $viewData['user'] = $_SESSION['user'];
             }
@@ -79,6 +84,10 @@ $app
             if (isset($_SESSION['user'])) {
                 $viewData['user'] = $_SESSION['user'];
             }
+            $query = $this->db->query('SELECT * from options');
+            $options = $query->fetchAll();
+
+            $viewData['options'] = $options;
             $viewData['project_categories'] = $project_categories;
             $viewData['projects'] = $projects;
             
@@ -101,6 +110,10 @@ $app
             $prepare->bindValue('slug', $arguments['slug']);
             $prepare->execute();
             $project = $prepare->fetch();
+
+            if (!$project) {
+                throw new NotFoundException($request, $response);
+            }
             
             //category
             $prepare = $this->db->prepare(
@@ -123,6 +136,10 @@ $app
             if (isset($_SESSION['user'])) {
                 $viewData['user'] = $_SESSION['user'];
             }
+            $query = $this->db->query('SELECT * from options');
+            $options = $query->fetchAll();
+
+            $viewData['options'] = $options;
             $viewData['project'] = $project;
             $viewData['category'] = $category;
             $viewData['next_project'] = $next_project;
@@ -141,6 +158,10 @@ $app
             if (isset($_SESSION['user'])) {
                 $viewData['user'] = $_SESSION['user'];
             }
+            $query = $this->db->query('SELECT * from options');
+            $options = $query->fetchAll();
+
+            $viewData['options'] = $options;
             $viewData['name'] = 'Alphonse Bouy';
             return $this->view->render($response, 'pages/contact.twig', $viewData);
         }
@@ -200,7 +221,10 @@ $app
                     }
                 }
             }
+            $query = $this->db->query('SELECT * from options');
+            $options = $query->fetchAll();
 
+            $viewData['options'] = $options;
             $viewData['name'] = 'Alphonse Bouy';
             return $this->view->render($response, 'pages/contact.twig', $viewData);
         }
@@ -225,7 +249,7 @@ $app
             
             $viewData['projects'] = $projects;
             
-            $query = $this->db->query('SELECT * FROM messages');
+            $query = $this->db->query('SELECT * FROM messages ORDER BY id DESC');
             $messages = $query->fetchAll();
             
             $viewData['messages'] = $messages;
@@ -248,6 +272,15 @@ $app
     ->post(
         '/admin',
         function ($request, $response) {
+            if (!empty($_POST['project_id'])) {
+                $prepare = $this->db->prepare(
+                    'DELETE FROM projects WHERE id = :id'
+                );
+                $prepare->bindValue('id', $_POST['project_id']);
+                if($prepare->execute()){
+                    die(json_encode(['res' => true]));
+                }
+            }
             
             $twitterLink = trim($_POST['twitter']);
             $linkedinLink = trim($_POST['linkedin']);
@@ -561,6 +594,10 @@ $app
             $prepare->bindValue('slug', $arguments['slug']);
             $prepare->execute();
             $project = $prepare->fetch();
+
+            if (!$project) {
+                throw new NotFoundException($request, $response);
+            }
             
             $query = $this->db->query('SELECT * from project_categories');
             $categories = $query->fetchAll();

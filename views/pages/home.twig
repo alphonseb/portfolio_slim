@@ -1,36 +1,45 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
 
+{% block content %}
 <main>
-    <div>
-        <div>
+    <div class="row mb-5">
+        <div class="col-sm-12 col-md-4">
             <h1>{{ name }}</h1>
-            <h3>{{ function }}</h3>
-            <p>{{ description }}</p>
-            <a href="{{ path_for('projects') }}">Discover my work</a>
+            <h3 class="mb-5">{{ function }}</h3>
+            <p class="mb-5">{{ description|raw }}</p>
+            <a class="btn btn-primary" href="{{ path_for('projects') }}">Discover my work</a>
         </div>
-        <div>
-            <img src="{{ base_url() ~ '/assets/images/illu-home.svg' }}" alt="Developer programming - Illustration">
+        <div class="col-sm-12 col-md-8">
+            <img class="img-fluid" src="{{ base_url() ~ '/assets/images/illu-home.svg' }}" alt="Developer programming - Illustration">
         </div>
     </div>
     {% if projects is not empty  %}
-        <div>
-            <h2>3 random projects</h2>
-            <div>
+        <div class="mb-5">
+            <h2 class="mb-4">Here are 3 random projects :</h2>
+            <div class="row">
                 {% for _project in projects %}
-                    <div>
-                        <a href="{{ path_for('project', {slug: _project.slug}) }}">
-                            <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url }}" alt="">
-                            <h4>{{ _project.title }}</h4>
-                        </a>
-                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card h-100">
+                            <img class="card-img-top img-fluid img-thumbnail" src="{{ base_url() ~ '/' ~ _project.thumbnail_url }}" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ _project.title }}</h4>
+                                <div class="card-text mb-4">
+                                    {{ _project.content|length > 100 ? _project.content|slice(0, 100) ~ '...' : _project.content|replace({'../': base_url()~'/', '<p>': ' ', '</p>': ' '})|raw }}
+                                </div>
+                                <a class="btn btn-warning" href="{{ path_for('project', {slug: _project.slug}) }}"> Check it out </a>
+                            </div>
+                        </div>
+                    </div> 
                 {% endfor %}
             </div>
         </div>
     {% endif %}
-    <div>
-        <h2>Do you want to work together ?</h2>
-        <a href="{{ path_for('contact') }}">Get in touch</a>
+    <div class="mb-5">
+        <h2 class="text-center mb-3">Do you want to work together ?</h2>
+        <div class="text-center">
+            <a class="btn btn-primary" href="{{ path_for('contact') }}">Get in touch</a>
+        </div>
     </div>
 </main>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

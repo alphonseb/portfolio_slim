@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ name }} - Portfolio</title>
     <meta name="description" content="{{ meta_description }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ base_url() ~ '/assets/css/app.css'}}">
     <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=cufj7n76c21xsctcz4wmjvd7lzwviexn88irtasdlvp3mevq'></script>
     <script>
         tinymce.init({
@@ -17,18 +19,18 @@
     </script>
 </head>
 <body>
-    <header>
+    <header class="container-fluid">
         <div class="logo">
             
         </div>
         <nav>
-            <ul>
-                <li><a href="{{ path_for('home') }}">Home</a></li>
-                <li><a href="{{ path_for('projects') }}">Projects</a></li>
-                <li><a href="{{ path_for('contact') }}">Contact</a></li>
+            <ul class="nav justify-content-end p-3">
+                <li class="nav-item"><a class="nav-link active" href="{{ path_for('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path_for('projects') }}">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path_for('contact') }}">Contact</a></li>
                 {% if user is not empty %}
-                    <li><a href="{{ path_for('admin') }}">Admin Home</a></li>
-                    <li><a href="{{ path_for('disconnect') }}">Admin Disconnect</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path_for('admin') }}">Admin Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path_for('disconnect') }}">Admin Disconnect</a></li>
                 {% endif %}
             </ul>
         </nav>

@@ -1,43 +1,72 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
 
+{% block content %}
 <main>
     <h1>Bonjour {{ user.login }}</h1>
     <a href="{{ path_for('disconnect') }}">Se déconnecter</a>
-    {% if messages is not empty %}
-        <h2>Messages</h2>
-        {% for _message in messages %}
-            <div>
-                <p>De : {{ _message.name }} &#60;{{ _message.email }}&#62;</p>
-                <p>
-                    {{ _message.message }}
-                </p>
-                <a href="mailto:{{_message.email}}">Répondre</a>
-            </div>
-        {% endfor %}
-    {% endif %}
-    {% if options is not empty %}
-        <h2>Liens footer</h2>
-        <form action="#" method="post">
-            {% for _option in options %}
-                <div>
-                    <label for="{{ _option.id }}">{{ _option.name|capitalize }}</label>
-                    <input type="text" id="{{ _option.id }}" name="{{_option.name}}" value="{{ _option.link }}">
+    <div class="row">
+        
+        {% if messages is not empty %}
+            <div class="col-sm-12 col-md-6">
+                <h2 class="mt-4">Messages</h2>
+                <div style="max-height: 550px; overflow-y: auto;">
+                    {% for _message in messages %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">De : {{ _message.name }} &#60;{{ _message.email }}&#62;</h5>
+                                <p class="card-text">
+                                    {{ _message.message }}
+                                </p>
+                                <a class="btn btn-outline-primary" href="mailto:{{_message.email}}">Répondre</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-            <input type="submit" value="Mettre à jour">
-        </form>
-    {% endif %}
-    <h2>Projets</h2>
-    <a href="{{ path_for('add-project') }}">Ajouter un projet</a>
-    {% if projects is not empty %}
-        {% for _project in projects %}
-            <a href="{{ path_for('edit-project', {slug: _project.slug})}}">
-                <h3>{{ _project.title }}</h3>
-                <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
-            </a>
-        {% endfor %}
-    {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if options is not empty %}
+            <div class="col-sm-12 col-md-6">
+                <h2 class="mt-4">Liens footer</h2>
+                <form action="#" method="post">
+                    {% for _option in options %}
+                        <div class="form-group">
+                            <label for="{{ _option.id }}">{{ _option.name|capitalize }}</label>
+                            <input class="form-control" type="text" id="{{ _option.id }}" name="{{_option.name}}" value="{{ _option.link }}">
+                        </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <input class="btn btn-outline-primary" type="submit" value="Mettre à jour">
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+        <div class="col-12">
+            <div class="mb-4">
+                <h2 class="mt-4 mb-3">Projets</h2>
+                <a class="btn btn-primary" href="{{ path_for('add-project') }}">Ajouter un projet</a>
+            </div>
+            {% if projects is not empty %}
+                {% for _project in projects %}
+                    <div class="card mb-4" id="project-{{ _project.id }}">
+                        <div class="row no-gutters">
+                            <div class="col-4">
+                                <img class="card-img img-fluid" src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ _project.title }}</h3>
+                                    <a class="btn btn-warning" href="{{ path_for('edit-project', {slug: _project.slug})}}">Editer</a>
+                                    <button data-project-id="{{ _project.id }}" style="display: block;" class="js-delete mt-2 btn btn-danger">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
     
 </main>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

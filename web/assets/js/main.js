@@ -67,3 +67,46 @@ if (catInputs != null) {
         }
     }
 }
+'use strict';
+
+var deleteButtons = document.querySelectorAll('.js-delete');
+
+var _iteratorNormalCompletion = true;
+var _didIteratorError = false;
+var _iteratorError = undefined;
+
+try {
+    for (var _iterator = deleteButtons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var _delete = _step.value;
+
+        _delete.addEventListener('click', function (_e) {
+            var postData = new FormData();
+            postData.append('project_id', _e.target.dataset.projectId);
+
+            window.fetch("#", {
+                method: "POST",
+                body: postData
+            }).then(function (res) {
+                return res.json();
+            }).then(function (data) {
+
+                if (data.res == true) {
+                    document.querySelector('#project-' + _e.target.dataset.projectId).remove();
+                }
+            });
+        });
+    }
+} catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+} finally {
+    try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+        }
+    } finally {
+        if (_didIteratorError) {
+            throw _iteratorError;
+        }
+    }
+}

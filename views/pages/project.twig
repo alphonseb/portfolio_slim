@@ -1,24 +1,28 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
 
-<img src="{{ base_url() ~ '/' ~ project.thumbnail_url }}" alt="">
+{% block content %}
+
+<div class="text-center">
+    <img class="img-fluid mb-4" src="{{ base_url() ~ '/' ~ project.thumbnail_url }}" alt="">
+</div>
 <h1>{{ project.title }}</h1>
-<small>{{ category.name }}</small>
+<p class="mb-4">Catégorie : {{ category.name|capitalize }}</p>
 <div>
     {{ project.content|replace({'../': base_url()~'/'})|raw }}
 </div>
 {% if project.link_online or project.link_repo %}
-    <div>
+    <div class="mb-4">
         {% if project.link_online %}
-            <a href="{{ project.link_online }}"></a>
+            <a class="btn btn-outline-primary" href="{{ project.link_online }}">Lien Online</a>
         {% endif %}
         {% if project.link_repo %}
-            <a href="{{ project.link_repo }}"></a>
+            <a class="btn btn-outline-primary" href="{{ project.link_repo }}">Lien Repo</a>
         {% endif %}
     </div>
 {% endif %}
-<div>
-    <h4>Check my next project :</h4>
-    <a href="{{ path_for('project', {slug: next_project.slug}) }}">{{ next_project.title }}</a>
+<div class="mt-5 mb-4">
+    <h4>Discover another project :</h4>
+    <a class="btn btn-warning" href="{{ path_for('project', {slug: next_project.slug}) }}">{{ next_project.title }}</a>
 </div>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

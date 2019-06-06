@@ -1,20 +1,24 @@
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="{{ path_for('home') }}">Home</a></li>
-                <li><a href="{{ path_for('projects') }}">Projects</a></li>
-                <li><a href="{{ path_for('contact') }}">Contact</a></li>
-            </ul>
-        </nav>
-        <div>
-            <p>Copyright {{ name }} {{ 'now'|date('Y') }}</p>
-        </div>
-        <div>
-            {% for _option in options %}
-                <a target="_blank" href="{{ _option.link }}" title="{{ _option.name }}">
-                    {% include 'svg/' ~ _option.name ~ '.svg' %}
-                </a>
-            {% endfor %}
+    <footer class="container-fluid p-3">
+        <div class="row align-items-center">
+            <div class="col-sm-12 col-md-4">
+                <nav class="mb-sm-2">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link" href="{{ path_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path_for('projects') }}">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path_for('contact') }}">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <p class="pl-sm-3 pl-mb-0 mb-sm-3 mb-0 text-md-center text-sm-left" >Copyright Alphonse Bouy {{ 'now'|date('Y') }}</p>
+            </div>
+            <div class="col-sm-12 col-md-4 text-sm-left text-md-center">
+                {% for _option in options %}
+                    <a class="pl-sm-3 pl-mb-0 social-icons" target="_blank" href="{{ _option.link }}" title="{{ _option.name }}">
+                        {% include 'svg/' ~ _option.name ~ '.svg' %}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </footer>
     <script src="{{ base_url() ~ '/assets/js/main.js' }}"></script>

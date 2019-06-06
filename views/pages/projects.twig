@@ -1,17 +1,19 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
+
+{% block content %}
 
 <main class="projects">
-    <h1>My projects</h1>
-    <div>
-        <h3>Order by :</h3>
+    <h1 class="mb-4">My projects</h1>
+    <div class="mb-4 filters">
+        <h3 class="mb-3">You can order them by :</h3>
         {% for _project_category in project_categories %}
             <input type="checkbox" name="cat" id="{{ _project_category.id }}" value="{{ _project_category.id }}">
-            <label for="{{ _project_category.id }}">{{ _project_category.name|capitalize }}</label>
+            <label class="btn btn-outline-primary" for="{{ _project_category.id }}">{{ _project_category.name|capitalize }}</label>
         {% endfor %}
     </div>
-    <div class="js-result">
+    <div class="js-result row">
         {% include 'partials/projects.twig' %}
     </div>
 </main>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

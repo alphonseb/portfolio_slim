@@ -1,18 +1,20 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
+
+{% block content %}
 
 <main>
     <h1>Ajouter un projet</h1>
     <form action="#" method="post" enctype="multipart/form-data">
-        <div>
+        <div class="form-group">
             <label for="title">Titre</label>
-            <input type="text" name="title" id="title" value="{{ title }}">
+            <input class="form-control" type="text" name="title" id="title" value="{{ title }}">
             {% if errors.title %}
-                {{ errors.title }}
+                <div class="mt-2 alert alert-warning">{{ errors.title }}</div>
             {% endif %}
         </div>
-        <div>
+        <div class="form-group">
             <label for="category">Catégorie</label>
-            <select name="category" id="category" class="js-cat-select">
+            <select name="category" id="category" class="js-cat-select form-control mb-2">
                 <option value="default">Nouvelle catégorie</option>
                 {% if categories is not empty %}
                     {% for _category in categories %}
@@ -20,32 +22,34 @@
                     {% endfor %}
                 {% endif %}
             </select>
-            <input type="text" name="category_name" class="js-new-cat">
-        </div>
-        <div>
+            <input type="text" name="category_name" class="js-new-cat form-control">
+        </div class="form-group">
+        <div class="form-group">
             <label for="content">Contenu</label>
-            <textarea class="tinymce" name="content" id="content" cols="30" rows="10">{{ content }}</textarea>
+            <textarea class="tinymce" name="content" id="content" cols="30" rows="30">{{ content }}</textarea>
             {% if errors.content %}
-                {{ errors.content }}
+                <div class="mt-2 alert alert-warning">{{ errors.content }}</div>
             {% endif %}
         </div>
-        <div>
+        <div class="form-group">
             <label for="link_online">Lien du projet en ligne</label>
-            <input type="text" id="link_online" name="link_online" value="{{ link_online }}">
+            <input class="form-control" type="text" id="link_online" name="link_online" value="{{ link_online }}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="link_repo">Lien du repo</label>
-            <input type="text" id="link_repo" name="link_repo" value="{{ link_repo }}">
+            <input class="form-control" type="text" id="link_repo" name="link_repo" value="{{ link_repo }}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="thumbnail">Miniature</label>
-            <input type="file" id="thumbnail" name="thumbnail">
+            <input style="display: block;" type="file" id="thumbnail" name="thumbnail">
             {% if errors.file %}
-                <p>{{ errors.file }}</p>
+                <div class="mt-2 alert alert-warning">{{ errors.file }}</div>
             {% endif %}
         </div>
-        <input type="submit" value="Envoyer">
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Envoyer">
+        </div>
     </form>
 </main>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

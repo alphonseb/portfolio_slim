@@ -1,18 +1,20 @@
-{% include 'partials/header.twig' %}
+{% extends 'bases/container.twig' %}
+
+{% block content %}
 
 <main>
-    <h1>Editer le projet {{ project.id }}</h1>
+    <h1 class="mb-4">Editer le projet {{ project.id }}</h1>
     <form action="#" method="post" enctype="multipart/form-data">
-        <div>
+        <div class="form-group">
             <label for="title">Titre</label>
-            <input type="text" name="title" id="title" value="{{project.title}}">
+            <input class="form-control" type="text" name="title" id="title" value="{{project.title}}">
             {% if errors.title %}
                 {{ errors.title }}
             {% endif %}
         </div>
-        <div>
+        <div class="form-group">
             <label for="category">Catégorie</label>
-            <select name="category" id="category" class="js-cat-select">
+            <select name="category" id="category" class="js-cat-select form-control">
                 <option value="default">Nouvelle catégorie</option>
                 {% if categories is not empty %}
                     {% for _category in categories %}
@@ -20,33 +22,35 @@
                     {% endfor %}
                 {% endif %}
             </select>
-            <input type="text" name="category_name" class="js-new-cat">
+            <input type="text" name="category_name" class="mt-2 form-control js-new-cat">
         </div>
-        <div>
+        <div class="form-group">
             <label for="content">Contenu</label>
-            <textarea class="tinymce" name="content" id="content" cols="30" rows="10">{{ project.content|raw }}</textarea>
+            <textarea class="tinymce" name="content" id="content" cols="30" rows="30">{{ project.content|raw }}</textarea>
             {% if errors.content %}
                 {{ errors.content }}
             {% endif %}
         </div>
-        <div>
+        <div class="form-group">
             <label for="link_online">Lien du projet en ligne</label>
-            <input type="text" id="link_online" name="link_online" value="{{ project.link_online }}">
+            <input class="form-control" type="text" id="link_online" name="link_online" value="{{ project.link_online }}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="link_repo">Lien du repo</label>
-            <input type="text" id="link_repo" name="link_repo" value="{{ project.link_repo }}">
+            <input class="form-control" type="text" id="link_repo" name="link_repo" value="{{ project.link_repo }}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="thumbnail">Miniature</label>
-            <img src="{{ base_url() ~ '/' ~ project.thumbnail_url }}" alt="">
+            <img class="mb-3 img-fluid" src="{{ base_url() ~ '/' ~ project.thumbnail_url }}" alt="">
             <input type="file" id="thumbnail" name="thumbnail">
             {% if errors.file %}
                 <p>{{ errors.file }}</p>
             {% endif %}
         </div>
-        <input type="submit" value="Mettre à jour">
+        <div class="form-group">
+            <input class="btn btn-warning" type="submit" value="Mettre à jour">
+        </div>
     </form>
 </main>
 
-{% include 'partials/footer.twig' %}
+{% endblock content %}

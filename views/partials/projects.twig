@@ -1,9 +1,14 @@
 {% for _project in projects %}
-    <div>
-        <a href="{{ path_for('project', {slug: _project.slug})}}">
-            <h3>{{ _project.title }}</h3>
-            <div>{{ _project.content|replace({'../': base_url()~'/'})|raw}}{#|length > 50 ? _project.content|slice(0, 50) ~ '...' : _project.content }}#}</div>
-            <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
-        </a>
+    <div class="col-sm-12 col-md-6 mb-5">
+        <div class="card h-100" >
+            <img class="card-img-top img-fluid img-thumbnail" src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
+            <div class="card-body">
+                <h3 class="card-title">{{ _project.title }}</h3>
+                <div class="card-text mb-4">{{ _project.content|length > 100 ? _project.content|slice(0, 100) ~ '...' : _project.content|replace({'../': base_url()~'/'})|raw}}{#|length > 50 ? _project.content|slice(0, 50) ~ '...' : _project.content }}#}</div>
+                <a class="btn btn-warning" href="{{ path_for('project', {slug: _project.slug})}}">
+                    Discover more
+                </a>
+            </div>
+        </div>
     </div>
 {% endfor %}

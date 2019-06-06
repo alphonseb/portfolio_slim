@@ -1,23 +1,31 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+.social-icons{
+  text-decoration: none;
+  margin-right: 1rem;
+}
 
-html {
-  font-size: 62.5%; }
+.social-icons:hover{
+  text-decoration: none;
+}
 
-body {
-  margin: 0;
-  font-family: "Montserrat", Arial, sans-serif;
-  font-size: 1.6rem;
-  overflow-x: hidden;
-  position: relative; }
-  body p {
-    margin: 0; }
-  body li {
-    list-style: none; }
-  body .error {
-    color: #b73838;
-    font-weight: bold; }
-  body .success {
-    font-weight: bold;
-    color: #38b77c; }
+.social-icons:hover path, .social-icons:hover rect, .social-icons:hover circle{
+  fill: #007bff;
+}
+
+.social-icons:last-child{
+  margin-right: 0;
+}
+
+.filters input{
+  display: none;
+}
+
+.filters label{
+  cursor: pointer;
+}
+
+.filters input:checked+label{
+  background: #007bff;
+  color: white;
+}
+
+
