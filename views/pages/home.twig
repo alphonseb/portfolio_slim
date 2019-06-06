@@ -12,19 +12,21 @@
             <img src="{{ base_url() ~ '/assets/images/illu-home.svg' }}" alt="Developer programming - Illustration">
         </div>
     </div>
-    <div>
-        <h2>3 random projects</h2>
+    {% if projects is not empty  %}
         <div>
-            {% for _random_project in random_projects %}
-                <div>
-                    <a href="">
-                        <img src="" alt="">
-                        <h4></h4>
-                    </a>
-                </div>
-            {% endfor %}
+            <h2>3 random projects</h2>
+            <div>
+                {% for _project in projects %}
+                    <div>
+                        <a href="{{ path_for('project', {slug: _project.slug}) }}">
+                            <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url }}" alt="">
+                            <h4>{{ _project.title }}</h4>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    {% endif %}
     <div>
         <h2>Do you want to work together ?</h2>
         <a href="{{ path_for('contact') }}">Get in touch</a>

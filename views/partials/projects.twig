@@ -1,0 +1,9 @@
+{% for _project in projects %}
+    <div>
+        <a href="{{ path_for('project', {slug: _project.slug})}}">
+            <h3>{{ _project.title }}</h3>
+            <div>{{ _project.content|replace({'../': base_url()~'/'})|raw}}{#|length > 50 ? _project.content|slice(0, 50) ~ '...' : _project.content }}#}</div>
+            <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
+        </a>
+    </div>
+{% endfor %}

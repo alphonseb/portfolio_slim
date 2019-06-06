@@ -3,6 +3,41 @@
 <main>
     <h1>Bonjour {{ user.login }}</h1>
     <a href="{{ path_for('disconnect') }}">Se déconnecter</a>
+    {% if messages is not empty %}
+        <h2>Messages</h2>
+        {% for _message in messages %}
+            <div>
+                <p>De : {{ _message.name }} &#60;{{ _message.email }}&#62;</p>
+                <p>
+                    {{ _message.message }}
+                </p>
+                <a href="mailto:{{_message.email}}">Répondre</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if options is not empty %}
+        <h2>Liens footer</h2>
+        <form action="#" method="post">
+            {% for _option in options %}
+                <div>
+                    <label for="{{ _option.id }}">{{ _option.name|capitalize }}</label>
+                    <input type="text" id="{{ _option.id }}" name="{{_option.name}}" value="{{ _option.link }}">
+                </div>
+            {% endfor %}
+            <input type="submit" value="Mettre à jour">
+        </form>
+    {% endif %}
+    <h2>Projets</h2>
+    <a href="{{ path_for('add-project') }}">Ajouter un projet</a>
+    {% if projects is not empty %}
+        {% for _project in projects %}
+            <a href="{{ path_for('edit-project', {slug: _project.slug})}}">
+                <h3>{{ _project.title }}</h3>
+                <img src="{{ base_url() ~ '/' ~ _project.thumbnail_url}}" alt="">
+            </a>
+        {% endfor %}
+    {% endif %}
+    
 </main>
 
 {% include 'partials/footer.twig' %}

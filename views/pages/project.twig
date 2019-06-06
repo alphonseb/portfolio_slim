@@ -1,1 +1,24 @@
-Promotion
+{% include 'partials/header.twig' %}
+
+<img src="{{ base_url() ~ '/' ~ project.thumbnail_url }}" alt="">
+<h1>{{ project.title }}</h1>
+<small>{{ category.name }}</small>
+<div>
+    {{ project.content|replace({'../': base_url()~'/'})|raw }}
+</div>
+{% if project.link_online or project.link_repo %}
+    <div>
+        {% if project.link_online %}
+            <a href="{{ project.link_online }}"></a>
+        {% endif %}
+        {% if project.link_repo %}
+            <a href="{{ project.link_repo }}"></a>
+        {% endif %}
+    </div>
+{% endif %}
+<div>
+    <h4>Check my next project :</h4>
+    <a href="{{ path_for('project', {slug: next_project.slug}) }}">{{ next_project.title }}</a>
+</div>
+
+{% include 'partials/footer.twig' %}

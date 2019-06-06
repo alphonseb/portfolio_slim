@@ -1,0 +1,51 @@
+{% include 'partials/header.twig' %}
+
+<main>
+    <h1>Ajouter un projet</h1>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="title">Titre</label>
+            <input type="text" name="title" id="title" value="{{ title }}">
+            {% if errors.title %}
+                {{ errors.title }}
+            {% endif %}
+        </div>
+        <div>
+            <label for="category">Catégorie</label>
+            <select name="category" id="category" class="js-cat-select">
+                <option value="default">Nouvelle catégorie</option>
+                {% if categories is not empty %}
+                    {% for _category in categories %}
+                        <option value="{{ _category.id }}">{{ _category.name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <input type="text" name="category_name" class="js-new-cat">
+        </div>
+        <div>
+            <label for="content">Contenu</label>
+            <textarea class="tinymce" name="content" id="content" cols="30" rows="10">{{ content }}</textarea>
+            {% if errors.content %}
+                {{ errors.content }}
+            {% endif %}
+        </div>
+        <div>
+            <label for="link_online">Lien du projet en ligne</label>
+            <input type="text" id="link_online" name="link_online" value="{{ link_online }}">
+        </div>
+        <div>
+            <label for="link_repo">Lien du repo</label>
+            <input type="text" id="link_repo" name="link_repo" value="{{ link_repo }}">
+        </div>
+        <div>
+            <label for="thumbnail">Miniature</label>
+            <input type="file" id="thumbnail" name="thumbnail">
+            {% if errors.file %}
+                <p>{{ errors.file }}</p>
+            {% endif %}
+        </div>
+        <input type="submit" value="Envoyer">
+    </form>
+</main>
+
+{% include 'partials/footer.twig' %}

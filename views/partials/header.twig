@@ -6,6 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ name }} - Portfolio</title>
     <meta name="description" content="{{ meta_description }}">
+    <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=cufj7n76c21xsctcz4wmjvd7lzwviexn88irtasdlvp3mevq'></script>
+    <script>
+        tinymce.init({
+            selector: '.tinymce',
+            images_upload_url: "{{base_url()}}/tinymce_images.php",
+            plugins: "image",
+            toolbar: "image"
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -17,6 +26,10 @@
                 <li><a href="{{ path_for('home') }}">Home</a></li>
                 <li><a href="{{ path_for('projects') }}">Projects</a></li>
                 <li><a href="{{ path_for('contact') }}">Contact</a></li>
+                {% if user is not empty %}
+                    <li><a href="{{ path_for('admin') }}">Admin Home</a></li>
+                    <li><a href="{{ path_for('disconnect') }}">Admin Disconnect</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
